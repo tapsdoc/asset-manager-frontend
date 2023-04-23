@@ -1,0 +1,78 @@
+<div [@routerTransition] class="login-page">
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <img class="user-avatar" src="assets/images/logo.png" width="150"  alt=""/>
+            <h1>Asset Management System</h1>
+            <form role="form" [formGroup]="form" (ngSubmit)="form.valid && registerUser()">
+                <div class="form-content">
+                    <div class="form-group">
+                        <input
+                            [placeholder]="'Email' | translate"
+                            class="form-control input-underline input-lg"
+                            type="email"
+                            formControlName="email"
+                            (input)="updateValidationStatus('email')"
+                        />
+                        <div *ngIf="form.get('email').invalid && form.get('email').dirty">
+                            <div *ngIf="form.get('email').errors.required">
+                                Email is required
+                            </div>
+                            <div *ngIf="form.get('email').errors.pattern">
+                                Invalid email format
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input
+                            [placeholder]="'Password' | translate"
+                            class="form-control input-underline input-lg"
+                            type="password"
+                            formControlName="password"
+                            (input)="updateValidationStatus('password')"
+                        />
+                        <div *ngIf="form.get('password').invalid && form.get('password').dirty">
+                            <div *ngIf="form.get('password').errors.required">
+                                Password is required
+                            </div>
+                            <div *ngIf="form.get('password').errors['at-least-one-digit']">
+                                Password must contain at least one digit
+                            </div>
+                            <div *ngIf="form.get('password').errors['at-least-one-lowercase']">
+                                Password must contain at least one lowercase letter
+                            </div>
+                            <div *ngIf="form.get('password').errors['at-least-one-uppercase']">
+                                Password must contain at least one uppercase letter
+                            </div>
+                            <div *ngIf="form.get('password').errors['at-least-one-special-character']">
+                                Password must contain at least one special character (!@#$%^&*)
+                            </div>
+                            <div *ngIf="form.get('password').errors['at-least-eight-characters']">
+                                Password must be at least 8 characters long
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input
+                            [placeholder]="'Repeat Password' | translate"
+                            class="form-control input-underline input-lg"
+                            type="password"
+                            formControlName="passwordConfirmation"
+                            (input)="updateValidationStatus('passwordConfirmation')"
+                        />
+                        <div *ngIf="form.get('passwordConfirmation').invalid && form.get('passwordConfirmation').dirty">
+                            <div *ngIf="form.get('passwordConfirmation').errors.required">
+                                Password confirmation is required
+                            </div>
+                            <div *ngIf="form.get('passwordConfirmation').errors.notSame">
+                                Passwords do not match
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn rounded-btn"> {{ 'Register' | translate }} </button>
+                &nbsp;
+                <a [routerLink]="['/login']" class="btn rounded-btn">{{ 'Log in' | translate }}</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<button mat-raised-button color="primary" (click)="openDialog()">Add Asset</button>
+<br />
+<br />
+<div>
+    <mat-form-field class="search-field">
+        <mat-label>Search</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="What are you looking for?" #input>
+    </mat-form-field>
+
+    <div class="table-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let row"> {{ row.id }} </td>
+            </ng-container>
+            <!-- Progress Column -->
+            <ng-container matColumnDef="assetId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Asset ID </th>
+                <td mat-cell *matCellDef="let row"> {{ row.assetId }} </td>
+            </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let row"> {{ row.name }} </td>
+            </ng-container>
+            <!-- Fruit Column -->
+            <ng-container matColumnDef="assetModelNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Model Number </th>
+                <td mat-cell *matCellDef="let row"> {{row.assetModelNumber}} </td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+                <td mat-cell *matCellDef="let row"> {{ row.price | number }} </td>
+            </ng-container>
+            <ng-container matColumnDef="dateOfPurchase">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Action Date </th>
+                <td mat-cell *matCellDef="let row"> {{ row.dateOfPurchase | date }} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of asset"></mat-paginator>
+    </div>
+</div>
+

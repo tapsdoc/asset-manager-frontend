@@ -1,0 +1,35 @@
+<div [@routerTransition] class="login-page">
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <img class="user-avatar" src="assets/images/logo.png" width="150"  alt=""/>
+            <h1>Asset Management System</h1>
+            <form role="form" [formGroup]="form" (ngSubmit)="form.valid && loginUser()">
+                <div class="form-content">
+                    <div class="form-group">
+                        <input
+                            [placeholder]="'Email' | translate"
+                            class="form-control input-underline input-lg"
+                            type="text"
+                            formControlName="email"
+                            required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <input
+                            [placeholder]="'Password' | translate"
+                            class="form-control input-underline input-lg"
+                            type="password"
+                            formControlName="password"
+                            required
+                        />
+                    </div>
+                </div>
+                <button type="submit" [disabled]="form.invalid" class="btn rounded-btn">{{
+                    'Log in' | translate
+                }}</button>
+                &nbsp;
+                <a [routerLink]="['/signup']" class="btn rounded-btn">{{ 'Register' | translate }}</a>
+            </form>
+        </div>
+    </div>
+</div>

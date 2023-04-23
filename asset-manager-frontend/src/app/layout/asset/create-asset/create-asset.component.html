@@ -1,0 +1,113 @@
+<h1 mat-dialog-title class="form-title">Add Asset</h1>
+<div class="form-wrapper">
+    <mat-dialog-content class="mat-typography form-content">
+        <form [formGroup]="form">
+            <div class="form-row">
+                <mat-form-field class="form-field">
+                    <mat-label>Asset ID</mat-label>
+                    <input matInput formControlName="assetId" required>
+                    <mat-error *ngIf="form.controls.assetId.hasError('required')">
+                        Asset ID is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-field">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" required>
+                    <mat-error *ngIf="form.controls.name.hasError('required')">
+                        Name is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field class="form-field">
+                    <mat-label>Model Number</mat-label>
+                    <input matInput formControlName="assetModelNumber" required>
+                    <mat-error *ngIf="form.controls.assetModelNumber.hasError('required')">
+                        Model number is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-field">
+                    <mat-label>Serial Number</mat-label>
+                    <input formControlName="serialNumber" matInput placeholder="Serial Number">
+                    <mat-error *ngIf="form.controls.serialNumber.hasError('required')">Serial Number is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field class="form-field">
+                    <mat-label>Price</mat-label>
+                    <input matInput type="number" formControlName="price" required>
+                    <mat-error *ngIf="form.controls.price.hasError('required')">
+                        Price is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-field">
+                    <mat-label>Category</mat-label>
+                    <mat-select formControlName="categoryId" required>
+                        <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.controls.categoryId.hasError('required')">
+                        Category is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field class="form-field">
+                    <mat-label>Date of Purchase</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dateOfPurchase" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="form.controls.dateOfPurchase.hasError('required')">
+                        Date of Purchase is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-field">
+                    <mat-label>Date of Purchase</mat-label>
+                    <input matInput [matDatepicker]="picker1" formControlName="dateOfManufacture" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                    <mat-error *ngIf="form.controls.dateOfManufacture.hasError('required')">
+                        Date is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field class="form-field">
+                    <mat-label>Condition</mat-label>
+                    <mat-select formControlName="assetStatus" required>
+                        <mat-option *ngFor="let assetStatus of assetStatuses" [value]="assetStatus">{{ assetStatus }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.controls.assetStatus.hasError('required')">
+                        Condition is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="form-field">
+                    <mat-label>Supplier</mat-label>
+                    <mat-select formControlName="supplierId" required>
+                        <mat-option *ngFor="let supplier of suppliers" [value]="supplier.id">{{ supplier.name }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.controls.supplierId.hasError('required')">
+                        Supplier is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form-row">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput formControlName="description"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="form-row">
+                <input type="file" (change)="onFileSelected($event)" formControlName="image">
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions class="form-actions">
+        <button mat-raised-button color="primary" (click)="save()">Add</button>
+        <button mat-button mat-dialog-close>Cancel</button>
+    </mat-dialog-actions>
+</div>
