@@ -52,14 +52,6 @@ export class SignupComponent implements OnInit {
                         horizontalPosition: 'end',
                         verticalPosition: 'bottom'
                     });
-                },
-                error => {
-                    console.log('error at component', error);
-                    this.snackBar.open(`${error.message}`, '', {
-                        duration: 3000,
-                        horizontalPosition: 'end',
-                        verticalPosition: 'bottom'
-                    });
                 }
             );
     }

@@ -1,4 +1,4 @@
-<h1 mat-dialog-title class="form-title">Add Asset</h1>
+<h1 mat-dialog-title class="form-title">{{ formName }}</h1>
 <div class="form-wrapper">
     <mat-dialog-content class="mat-typography form-content">
         <form [formGroup]="form">
@@ -107,7 +107,7 @@
         </form>
     </mat-dialog-content>
     <mat-dialog-actions class="form-actions">
-        <button mat-raised-button color="primary" (click)="save()">Add</button>
+        <button mat-raised-button color="primary" (click)="save()">{{ actionButton }}</button>
         <button mat-button mat-dialog-close>Cancel</button>
     </mat-dialog-actions>
 </div>

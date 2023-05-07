@@ -6,9 +6,10 @@ import { StatModule } from '../../shared';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { AssetModule } from "../asset/asset.module";
+import { AssetHistoryModule } from "../asset-history/asset-history.module";
 
 @NgModule({
-    imports: [CommonModule, NgbCarouselModule, NgbAlertModule, DashboardRoutingModule, StatModule, AssetModule],
+    imports: [CommonModule, NgbCarouselModule, NgbAlertModule, DashboardRoutingModule, StatModule, AssetModule, AssetHistoryModule],
     declarations: [DashboardComponent]
 })
 export class DashboardModule {}

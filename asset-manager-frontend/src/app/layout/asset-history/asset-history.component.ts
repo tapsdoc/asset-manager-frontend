@@ -13,9 +13,9 @@ import { Subscription } from "rxjs";
 })
 export class AssetHistoryComponent implements OnInit, AfterViewInit, OnDestroy {
 
-    history: AssetHistory[];
+    history: AssetHistory[] = [];
     private subs: Subscription;
-    displayedColumns: string[] = ['id', 'assetId', 'employeeId', 'action', 'note', 'actionDate'];
+    displayedColumns: string[] = ['id', 'asset', 'action', 'note', 'isAssigned', 'isDamaged', 'isReturned', 'actionDate'];
     dataSource: MatTableDataSource<AssetHistory> = new MatTableDataSource();
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -27,7 +27,8 @@ export class AssetHistoryComponent implements OnInit, AfterViewInit, OnDestroy {
         this.subs = this.assetHistoryService.getHistory().subscribe(
             data => {
                 this.history = data;
-            }, error => console.log(error)
+                this.dataSource.data = data;
+            }
         )
     }
 

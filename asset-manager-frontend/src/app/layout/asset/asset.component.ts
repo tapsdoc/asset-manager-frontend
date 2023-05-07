@@ -14,8 +14,8 @@ import { CreateAssetComponent } from "./create-asset/create-asset.component";
     styleUrls: ['asset.component.scss']
 })
 export class AssetComponent implements OnInit, AfterViewInit, OnDestroy {
-    assets: Asset[];
 
+    assets: Asset[];
     private subs: Subscription;
     assetId: string;
     name: string;
@@ -24,12 +24,12 @@ export class AssetComponent implements OnInit, AfterViewInit, OnDestroy {
     image: string;
 
     displayedColumns: string[] = [
-        'id',
         'assetId',
         'name',
         'assetModelNumber',
         'price',
-        'dateOfPurchase'
+        'dateOfPurchase',
+        'action'
     ];
     dataSource: MatTableDataSource<Asset> = new MatTableDataSource();
 
@@ -43,7 +43,7 @@ export class AssetComponent implements OnInit, AfterViewInit, OnDestroy {
             data => {
                 this.assets = data;
                 this.dataSource.data = data;
-            }, error => console.log(error)
+            }
         )
     }
 
@@ -52,11 +52,35 @@ export class AssetComponent implements OnInit, AfterViewInit, OnDestroy {
         this.dataSource.sort = this.sort;
     }
 
-    openDialog() {
-        const dialogRef = this.dialog.open(CreateAssetComponent);
-        dialogRef.afterClosed().subscribe();
+    getAllAssets() {
+        this.assetHistoryService.getAllAssets().subscribe(
+            data => {
+                this.assets = data;
+                this.dataSource.data = data;
+            }
+        );
     }
 
+    addAsset() {
+        const dialogRef = this.dialog.open(CreateAssetComponent);
+        dialogRef.afterClosed().subscribe(
+            data => {
+                if (data === 'add') {
+                    this.getAllAssets();
+                }
+            }
+        );
+    }
+
+    editAsset(row: any) {
+        this.dialog.open(CreateAssetComponent, {data:row}).afterClosed().subscribe(
+            val => {
+                if (val === 'edit') {
+                    this.getAllAssets();
+                }
+            }
+        );
+    }
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();

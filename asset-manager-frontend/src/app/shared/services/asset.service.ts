@@ -15,6 +15,18 @@ export class AssetService {
     addAsset(form: FormData): Observable<any> {
         return this.http.post(`${this.url}/add`, form);
     }
+
+    editAsset(id: bigint, form: any): Observable<any> {
+        return this.http.put(`${this.url}/edit/` + id, form);
+    }
+
+    delete(id: bigint): void {
+        this.http.delete(`${this.url}/delete/` + id);
+    }
+
+    viewAsset(id: bigint): Observable<Asset> {
+        return this.http.get<Asset>(`${this.url}/get`)
+    }
     getAllAssets(): Observable<Asset[]> {
         return this.http.get<Asset[]>(`${this.url}/all`);
     }

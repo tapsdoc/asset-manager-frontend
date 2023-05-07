@@ -8,7 +8,10 @@ const routes: Routes = [
         component: LayoutComponent,
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'prefix' },
-            { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule) },
+            {
+                path: 'dashboard',
+                loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule)
+            },
             { path: 'asset', loadChildren: () => import('./asset/asset.module').then((m) => m.AssetModule) },
             { path: 'asset-history', loadChildren: () => import('./asset-history/asset-history.module').then((m) => m.AssetHistoryModule) },
             { path: 'employee', loadChildren: () => import('./employee/employee.module').then((m)=> m.EmployeeModule) }

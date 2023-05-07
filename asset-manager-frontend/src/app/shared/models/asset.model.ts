@@ -11,7 +11,7 @@ export interface Asset {
     dateOfAssignment: Date;
     dateOfManufacture: Date;
     assetStatus: string;
-    supplier: bigint;
-    category: bigint;
+    supplierId: bigint;
+    categoryId: bigint;
 }
 

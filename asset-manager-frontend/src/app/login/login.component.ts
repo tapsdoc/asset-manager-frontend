@@ -1,15 +1,15 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Router } from '@angular/router';
-import { routerTransition } from '../router.animations';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { routerTransition } from "../router.animations";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { finalize, Subscription } from "rxjs";
 import { AuthService } from "../shared/services/auth.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
+    selector: "app-login",
+    templateUrl: "./login.component.html",
+    styleUrls: ["./login.component.scss"],
     animations: [routerTransition()]
 })
 export class LoginComponent implements OnInit {
@@ -32,31 +32,32 @@ export class LoginComponent implements OnInit {
 
     loginUser() {
         this.loginLoading = true;
-
         this.loginSubscription = this.authService
-            .login(this.form.value)
+            .signin(this.form.value)
             .pipe(finalize(() => this.loginLoading = false))
             .subscribe(
                 data => {
                     this.router.navigate(['/dashboard']).then();
-                },
-                error => {
-                    this.snackBar.open('Invalid credentials', '', {
+                    this.snackBar.open(`Login successful!`, "", {
                         duration: 3000,
-                        horizontalPosition: 'end',
-                        verticalPosition: 'bottom'
+                        horizontalPosition: "end",
+                        verticalPosition: "bottom"
                     });
                 }
             );
     }
 
+    onLoggedin() {
+        localStorage.setItem('isLoggedin', 'true');
+    }
+
     private initFormBuilder() {
         this.form = this.formBuilder.group({
-            email: ['', [
+            email: ["", [
                 Validators.required,
                 Validators.email
             ]],
-            password: ['', Validators.required]
+            password: ["", Validators.required]
         });
     }
 }

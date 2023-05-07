@@ -12,7 +12,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 @NgModule({
     imports: [CommonModule, MaterialModule, AssetRoutingModule, ReactiveFormsModule, FlexLayoutModule],
     declarations: [AssetComponent, RecentAssetComponent, CreateAssetComponent],
-    exports: [AssetComponent, RecentAssetComponent],
+    exports: [AssetComponent, RecentAssetComponent, CreateAssetComponent],
     providers: [AssetService],
 })
 export class AssetModule { }
