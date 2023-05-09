@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { finalize, Subscription } from "rxjs";
 import { AuthService } from "../shared/services/auth.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
     selector: "app-login",
@@ -13,51 +14,51 @@ import { MatSnackBar } from "@angular/material/snack-bar";
     animations: [routerTransition()]
 })
 export class LoginComponent implements OnInit {
-    form: FormGroup;
-    message: string;
-    loginSubscription: Subscription;
-    loginLoading = false;
+    loginForm: FormGroup;
 
     constructor(
+        private formBuilder: FormBuilder,
         private authService: AuthService,
-        public formBuilder: FormBuilder,
         private router: Router,
-        public snackBar: MatSnackBar
-    ) {
-        this.initFormBuilder();
-    }
+        private snackBar: MatSnackBar
+    ) { }
 
     ngOnInit() {
+        this.loginForm = this.formBuilder.group({
+            email: ['', [Validators.required, Validators.email]],
+            password: ['', [Validators.required, Validators.minLength(8)]]
+        });
     }
 
     loginUser() {
-        this.loginLoading = true;
-        this.loginSubscription = this.authService
-            .signin(this.form.value)
-            .pipe(finalize(() => this.loginLoading = false))
+        this.authService
+            .signin(this.loginForm.value)
             .subscribe(
                 data => {
                     this.router.navigate(['/dashboard']).then();
-                    this.snackBar.open(`Login successful!`, "", {
+                    this.snackBar.open(`User logged in!`, '', {
                         duration: 3000,
-                        horizontalPosition: "end",
-                        verticalPosition: "bottom"
+                        horizontalPosition: 'end',
+                        verticalPosition: 'bottom'
+                    });
+                }, error => {
+                    this.snackBar.open(`Invalid credentials!`, '', {
+                        duration: 3000,
+                        horizontalPosition: 'end',
+                        verticalPosition: 'bottom'
                     });
                 }
             );
     }
 
-    onLoggedin() {
-        localStorage.setItem('isLoggedin', 'true');
-    }
-
     private initFormBuilder() {
-        this.form = this.formBuilder.group({
-            email: ["", [
+        this.loginForm = this.formBuilder.group({
+            email: ['', [
                 Validators.required,
-                Validators.email
             ]],
-            password: ["", Validators.required]
+            password: ['', [
+                Validators.required,
+            ]],
         });
     }
 }

@@ -25,7 +25,7 @@ import { MaterialModule } from "./shared/modules/material.module";
         MaterialModule
     ],
     declarations: [AppComponent],
-    providers: [AuthGuard],
+    providers: [AuthService],
     bootstrap: [AppComponent]
 })
 export class AppModule {}
